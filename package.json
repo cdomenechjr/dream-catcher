@@ -1,22 +1,21 @@
-// Validation helper
-export function validateText(text) {
-  // Type check
-  if (typeof text !== 'string') {
-    return { valid: false, error: 'Dream text must be a string' };
+{
+  "name": "dream-catcher",
+  "version": "1.0.0",
+  "description": "Dream Catcher - A dream journal with AI interpretations",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^8.1.0",
+    "openai": "^4.52.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
-
-  // Sanitization: trim whitespace
-  const trimmed = text.trim();
-
-  // Required field check
-  if (trimmed.length === 0) {
-    return { valid: false, error: 'Dream text is required' };
-  }
-
-  // Length limit check
-  if (trimmed.length > 5000) {
-    return { valid: false, error: 'Dream text must be less than 5000 characters' };
-  }
-
-  return { valid: true, value: trimmed };
 }
