@@ -1,25 +1,22 @@
-const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-// Call Gemini API for dream interpretation
-export async function getDreamInterpretation(dreamText) {
-
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error('Server misconfigured: GEMINI_API_KEY is missing');
-  }
-
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-  
-  try {
-    const generativeModel = gemini.getGenerativeModel({
-      model: model,
-      systemInstruction: 'You are a thoughtful dream interpreter. Be insightful but gentle, and consider common dream symbolism. Keep your interpretation to 2-3 paragraphs.'
-    });
-
-    const result = await generativeModel.generateContent(`Dream: ${dreamText}`);
-    const response = result.response;
-    return response.text().trim();
-  } catch (error) {
-    console.error('Gemini API error:', error);
-    throw new Error(`API error: ${error.message}`);
+{
+  "name": "dream-catcher",
+  "version": "1.0.0",
+  "description": "Dream Catcher - A dream journal with AI interpretations",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.15.0",
+    "express": "^4.18.2",
+    "helmet": "^8.1.0",
+    "openai": "^4.52.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }
